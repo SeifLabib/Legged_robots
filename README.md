@@ -10,6 +10,21 @@ To setup the environment:
 
 ```
 conda create -n LR python=3.10 numpy scipy matplotlib sympy ffmpeg ipykernel
+conda activate LR
+pip install -r requirements.txt
 ```
 
-And then in your VS Code window, choose the `LR` environment to run notebook.
+And then in your VS Code window, choose the `LR` environment to run notebook, or if it is a python file, then activate the virtual environment, then run the `.py` script.
+
+## Code Structure
+
+[`env`](env/) for the leg environment files, please see the gym simulation environment [`leg_gym_env.py`](env/leg_gym_env.py), the robot specific functionalities in [`leg.py`](env/leg.py), and config variables in [`configs_leg.py`](env/configs_leg.py). Review [`leg.py`](env/leg.py) carefully for accessing robot states.
+
+## Code Resources
+
+- The [PyBullet Quickstart Guide](https://docs.google.com/document/d/10sXEhzFRSnvFcl3XxNGhnD4N2SedqwdAvK3dsihxVUA/edit?tab=t.0#heading=h.2ye70wns7io3) is the current up-to-date documentation for interfacing with the simulation.
+
+## Tips
+
+- If your simulation is very slow, remove the calls to time.sleep() and disable the camera resets in [`leg_gym_env.py`](env/leg_gym_env.py).
+- The camera viewer can be modified in `_render_step_helper()` in [`leg_gym_env.py`](env/leg_gym_env.py) to track the hopper.
