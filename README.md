@@ -13,6 +13,8 @@ conda create -n LR python=3.10 numpy scipy matplotlib sympy ffmpeg ipykernel
 conda activate LR
 pip install -r requirements.txt
 ```
+> [!NOTE]
+> `Pybullet` in [`requirements.txt`](requirements.txt) would need you installing [Visual Studio](https://visualstudio.microsoft.com/), along with Desktop C++.
 
 And then in your VS Code window, choose the `LR` environment to run notebook, or if it is a python file, then activate the virtual environment, then run the `.py` script.
 
