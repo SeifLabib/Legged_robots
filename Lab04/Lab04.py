@@ -2,7 +2,7 @@
 from env.leg_gym_env import LegGymEnv
 import numpy as np
 import matplotlib.pyplot as plt
-from practical2_jacobian import jacobian_rel
+from Lab02 import jacobian_rel
 
 env = LegGymEnv(render=True, 
                 on_rack=False,    # set True to debug 
