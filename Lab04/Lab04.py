@@ -24,18 +24,20 @@ kdCartesian = np.diag([30,20])
 # define variables and force profile
 t = np.linspace(0,NUM_SECONDS,NUM_SECONDS*1000 + 1)
 Fx_max = 0     # max peak force in X direction
-Fz_max = 0     # max peak force in Z direction
-f = 0          # frequency
+Fz_max = 200     # max peak force in Z direction
+f = 1.0          # frequency
 
 if SINGLE_JUMP:
     # may want to choose different parameters
     Fx_max = 0     # max peak force in X direction
-    Fz_max = 0     # max peak force in Z direction
-    f = 0
+    Fz_max = 200     # max peak force in Z direction
+    f = 1.0
 
 # design Z force trajectory as a funtion of Fz_max, f, t
 #   Hint: use a sine function (but don't forget to remove positive forces)
 force_traj_z = np.zeros(len(t))
+force_traj_z = Fz_max * np.sin(2*np.pi*f*t)
+force_traj_z[force_traj_z > 0] = 0
 
 if SINGLE_JUMP:
     # remove rest of profile (just keep the first peak)
@@ -59,7 +61,8 @@ for i in range(NUM_SECONDS*1000):
     J, ee_pos_legFrame = jacobian_rel(env.robot.GetMotorAngles())
 
     # Add Cartesian PD (and/or joint PD? Think carefully about this, and try it out.)
-    tau += np.zeros(2) # [TODO]
+    # tau += np.zeros(2) # [TODO]
+    tau += J.T @ (kpCartesian @ (nominal_foot_pos - ee_pos_legFrame) - kdCartesian @ (J @ env.robot.GetMotorVelocities()))
 
     # Add force profile contribution
     tau += J.T @ np.array([force_traj_x[i], force_traj_z[i]])
