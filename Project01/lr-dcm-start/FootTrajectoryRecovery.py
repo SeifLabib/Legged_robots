@@ -13,7 +13,7 @@ class FootTrajectoryRecovery:
 
    
     def getSwingFootTrajectory(self,footPoseStart,footPoseEnd,time):
-        coefs = self.polynomial(footPoseStart[0],footPoseEnd[0], self.height_,self.tStep_-self.tDS_*.0)
+        coefs = self.polynomial(footPoseStart,footPoseEnd, self.height_,self.tStep_)
         footPosition = coefs[0] + coefs[1] * time + coefs[2] * time**2 + coefs[3] * time**3 + coefs[4] * time**4 + coefs[5] * time**5                                
         return footPosition
 
